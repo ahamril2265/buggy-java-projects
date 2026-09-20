@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: wallet-service
+  datasource:
+    url: jdbc:h2:mem:wallet;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;LOCK_TIMEOUT=10000;DB_CLOSE_DELAY=-1
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+server:
+  shutdown: graceful
+  error:
+    include-message: never
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  pattern:
+    level: "%5p [%X{correlationId:-}]"
+
+wallet:
+  supported-currencies: [USD, EUR, GBP]
+  fees:
+    transfer-basis-points: 50
+    minimum-minor: 1
+  limits:
+    max-transaction-minor: 1000000
+    daily-withdrawal-minor: 500000
