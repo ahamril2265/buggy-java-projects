@@ -16,6 +16,19 @@ public interface WalletRepository extends JpaRepository<Wallet, UUID> {
 
     Optional<Wallet> findByOwnerIdAndCurrency(String ownerId, String currency);
 
+    /**
+     * Returns only the id, not the entity. Loading a wallet entity here would put it in the
+     * persistence context <em>before</em> its row is locked, and a later locking query would then
+     * hand back that stale managed copy instead of the freshly locked state.
+     */
+    @Query("select w.id from Wallet w where w.ownerId = :ownerId and w.currency = :currency")
+    Optional<UUID> findIdByOwnerIdAndCurrency(@Param("ownerId") String ownerId, @Param("currency") String currency);
+
+    /**
+     * Locks the wallets in ascending id order. Every code path that locks more than one wallet
+     * goes through this method so that concurrent operations always acquire locks in the same
+     * order and cannot deadlock.
+     */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select w from Wallet w where w.id in :ids order by w.id")
     List<Wallet> lockAllByIdOrdered(@Param("ids") Collection<UUID> ids);

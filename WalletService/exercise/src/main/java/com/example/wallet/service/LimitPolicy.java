@@ -33,10 +33,15 @@ public class LimitPolicy {
         }
     }
 
+    /**
+     * Rolling 24 hour window: withdrawals made strictly less than 24 hours ago count towards the
+     * limit; an entry that is exactly 24 hours old has expired. Withdrawing exactly up to the
+     * limit is allowed.
+     */
     public void checkDailyWithdrawal(UUID walletId, long amountMinor) {
         Instant since = clock.instant().minus(DAILY_WINDOW);
         long alreadyWithdrawn = ledger.sumWithdrawnSince(walletId, since);
-        if (alreadyWithdrawn + amountMinor >= limits.dailyWithdrawalMinor()) {
+        if (alreadyWithdrawn + amountMinor > limits.dailyWithdrawalMinor()) {
             throw new DomainException(ErrorCode.DAILY_LIMIT_EXCEEDED,
                     "Daily withdrawal limit of " + limits.dailyWithdrawalMinor() + " would be exceeded");
         }

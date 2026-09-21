@@ -61,17 +61,17 @@ public class Wallet {
     public void credit(long amountMinor, Instant now) {
         requireActive();
         requirePositive(amountMinor);
-        if (balanceMinor >= Long.MAX_VALUE) {
-            throw new DomainException(ErrorCode.BALANCE_OVERFLOW, "Maximum credit amount reached " + amountMinor);
+        try {
+            balanceMinor = Math.addExact(balanceMinor, amountMinor);
+        } catch (ArithmeticException e) {
+            throw new DomainException(ErrorCode.BALANCE_OVERFLOW, "Balance limit reached for wallet " + id);
         }
-        balanceMinor = balanceMinor + amountMinor;
         updatedAt = now;
     }
 
     public void debit(long amountMinor, Instant now) {
         requireActive();
         requirePositive(amountMinor);
-        
         if (balanceMinor < amountMinor) {
             throw new DomainException(ErrorCode.INSUFFICIENT_FUNDS, "Insufficient funds in wallet " + id);
         }

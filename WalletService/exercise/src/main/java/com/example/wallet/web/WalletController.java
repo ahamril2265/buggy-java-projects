@@ -10,6 +10,7 @@ import com.example.wallet.web.dto.TransactionResponse;
 import com.example.wallet.web.dto.UpdateStatusRequest;
 import com.example.wallet.web.dto.WalletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -91,7 +92,7 @@ public class WalletController {
     public PageResponse<TransactionResponse> transactions(
             @PathVariable UUID walletId,
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "20") @Min(1) int size) {
+            @RequestParam(defaultValue = "20") @Min(1) @Max(100) int size) {
         return PageResponse.from(wallets.transactions(walletId, page, size), TransactionResponse::from);
     }
 

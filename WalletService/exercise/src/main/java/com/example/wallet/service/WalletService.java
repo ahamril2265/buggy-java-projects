@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Clock;
-import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +45,10 @@ public class WalletService {
             throw new DomainException(ErrorCode.SYSTEM_WALLET_NOT_ALLOWED, "Owner id is reserved");
         }
         requireSupportedCurrency(currency);
+        if (wallets.findByOwnerIdAndCurrency(ownerId, currency).isPresent()) {
+            throw new DomainException(ErrorCode.WALLET_ALREADY_EXISTS,
+                    "Owner already has a " + currency + " wallet");
+        }
         return wallets.saveAndFlush(Wallet.open(ownerId, currency, clock.instant()));
     }
 
@@ -56,7 +59,7 @@ public class WalletService {
 
     @Transactional
     public LedgerEntry deposit(UUID walletId, long amountMinor, String currency) {
-        Wallet wallet = wallets.findById(walletId).orElseThrow(() -> walletNotFound(walletId));
+        Wallet wallet = lockUserWallet(walletId);
         requireCurrency(wallet, currency);
         limits.checkTransactionAmount(amountMinor);
 
@@ -67,14 +70,15 @@ public class WalletService {
     @Transactional
     public LedgerEntry withdraw(UUID walletId, long amountMinor, String currency) {
         Wallet wallet = lockUserWallet(walletId);
+        requireCurrency(wallet, currency);
         limits.checkTransactionAmount(amountMinor);
         limits.checkDailyWithdrawal(walletId, amountMinor);
 
         wallet.debit(amountMinor, clock.instant());
-        return ledger.record(wallet, UUID.randomUUID(), EntryType.WITHDRAWAL, -amountMinor, null, Instant.now());
+        return ledger.record(wallet, UUID.randomUUID(), EntryType.WITHDRAWAL, -amountMinor, null, clock.instant());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Wallet changeStatus(UUID walletId, WalletStatus target) {
         Wallet wallet = lockUserWallet(walletId);
         wallet.changeStatus(target, clock.instant());
@@ -86,7 +90,7 @@ public class WalletService {
         if (!wallets.existsById(walletId)) {
             throw walletNotFound(walletId);
         }
-        return entries.findByWalletId(walletId, PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "id")));
+        return entries.findByWalletId(walletId, PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
     }
 
     private Wallet lockUserWallet(UUID walletId) {
@@ -94,7 +98,11 @@ public class WalletService {
         if (locked.isEmpty()) {
             throw walletNotFound(walletId);
         }
-        return locked.get(0);
+        Wallet wallet = locked.get(0);
+        if (wallet.isSystemWallet()) {
+            throw new DomainException(ErrorCode.SYSTEM_WALLET_NOT_ALLOWED, "System wallets cannot be used directly");
+        }
+        return wallet;
     }
 
     private void requireSupportedCurrency(String currency) {

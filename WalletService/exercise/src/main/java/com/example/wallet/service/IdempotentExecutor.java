@@ -6,7 +6,6 @@ import com.example.wallet.domain.IdempotencyRecord;
 import com.example.wallet.repository.IdempotencyRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.PessimisticLockingFailureException;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 import tools.jackson.databind.ObjectMapper;
@@ -17,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Clock;
 import java.util.HexFormat;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
 /**
@@ -54,7 +54,7 @@ public class IdempotentExecutor {
             try {
                 return transactions.execute(status ->
                         executeInTransaction(key, operation, requestHash, responseType, successStatus, action));
-            } catch (DataIntegrityViolationException | PessimisticLockingFailureException | ObjectOptimisticLockingFailureException lostRace) {
+            } catch (DataIntegrityViolationException | PessimisticLockingFailureException lostRace) {
                 // Another request with the same key won the race; loop to replay its result.
                 pause(attempt);
             }
@@ -85,27 +85,28 @@ public class IdempotentExecutor {
                     "This Idempotency-Key was already used with a different request");
         }
         T body = mapper.readValue(record.getResponseBody(), responseType);
-        return new IdempotentResult<>(200, body, true);
+        return new IdempotentResult<>(record.getResponseStatus(), body, true);
     }
 
     private String hash(String operation, Object request) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = (operation + "\n" + request.getClass().getName()).getBytes(StandardCharsets.UTF_8);
+            byte[] bytes = (operation + "\n" + mapper.writeValueAsString(request)).getBytes(StandardCharsets.UTF_8);
             return HexFormat.of().formatHex(digest.digest(bytes));
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("SHA-256 is unavailable", e);
         }
     }
 
-    private void pause(int attempt) {
-        long baseMillis = Math.min(50L * (1L << Math.min(attempt, 6)), 500L); // cap growth
+    private static void pause(int attempt) {
+        // Exponential backoff, capped, with jitter so concurrent retries do not stay in lock-step.
+        long baseMillis = Math.min(50L * (1L << Math.min(attempt, 6)), 500L);
         long jitter = ThreadLocalRandom.current().nextLong(baseMillis / 2, baseMillis + 1);
         try {
             Thread.sleep(jitter);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new DomainException(ErrorCode.REQUEST_IN_PROGRESS, "Interrupted while retrying");
+            throw new DomainException(ErrorCode.REQUEST_IN_PROGRESS, "Interrupted while waiting for a duplicate request");
         }
     }
 }

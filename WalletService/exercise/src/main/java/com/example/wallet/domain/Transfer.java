@@ -72,12 +72,12 @@ public class Transfer {
         if (refundMinor <= 0) {
             throw new IllegalArgumentException("Refund amount must be positive");
         }
-        if (refundMinor > amountMinor) {
+        if (refundMinor > refundableMinor()) {
             throw new DomainException(ErrorCode.REFUND_EXCEEDS_TRANSFER,
                     "Refund of " + refundMinor + " exceeds the refundable amount of " + refundableMinor());
         }
         refundedMinor += refundMinor;
-        status = refundedMinor > amountMinor ? TransferStatus.REFUNDED : TransferStatus.PARTIALLY_REFUNDED;
+        status = refundedMinor == amountMinor ? TransferStatus.REFUNDED : TransferStatus.PARTIALLY_REFUNDED;
     }
 
     public UUID getId() {

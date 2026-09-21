@@ -5,7 +5,6 @@ import com.example.wallet.domain.EntryType;
 import com.example.wallet.domain.ErrorCode;
 import com.example.wallet.domain.Transfer;
 import com.example.wallet.domain.Wallet;
-import com.example.wallet.domain.WalletStatus;
 import com.example.wallet.repository.TransferRepository;
 import com.example.wallet.repository.WalletRepository;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -20,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 @Service
 public class TransferService {
@@ -55,11 +52,13 @@ public class TransferService {
      */
     @Transactional
     public Transfer transfer(UUID sourceId, UUID targetId, long amountMinor, String currency) {
+        if (sourceId.equals(targetId)) {
+            throw new DomainException(ErrorCode.SAME_WALLET_TRANSFER, "Source and target wallet must differ");
+        }
         limits.checkTransactionAmount(amountMinor);
 
-        UUID feeWalletId = wallets.findByOwnerIdAndCurrency(Wallet.getCurrency(), currency)
-                .orElseThrow(() -> new DomainException(ErrorCode.UNSUPPORTED_CURRENCY, "Unsupported currency: " + currency))
-                .getId();
+        UUID feeWalletId = wallets.findIdByOwnerIdAndCurrency(Wallet.SYSTEM_OWNER, currency)
+                .orElseThrow(() -> new DomainException(ErrorCode.UNSUPPORTED_CURRENCY, "Unsupported currency: " + currency));
 
         Map<UUID, Wallet> locked = lockAll(sourceId, targetId, feeWalletId);
         Wallet source = requireUserWallet(locked.get(sourceId), currency);
@@ -75,7 +74,7 @@ public class TransferService {
         ledger.record(source, transactionId, EntryType.TRANSFER_OUT, -amountMinor, transfer.getId(), now);
         if (fee > 0) {
             source.debit(fee, now);
-            ledger.record(source, transactionId, EntryType.FEE, -amountMinor, transfer.getId(), now);
+            ledger.record(source, transactionId, EntryType.FEE, -fee, transfer.getId(), now);
         }
 
         target.credit(amountMinor, now);
@@ -101,7 +100,7 @@ public class TransferService {
      */
     @Transactional
     public RefundResult refund(UUID transferId, long refundMinor) {
-        Transfer transfer = transfers.findById(transferId).orElseThrow(() -> transferNotFound(transferId));
+        Transfer transfer = transfers.findByIdForUpdate(transferId).orElseThrow(() -> transferNotFound(transferId));
         Map<UUID, Wallet> locked = lockAll(transfer.getSourceWalletId(), transfer.getTargetWalletId());
         Wallet source = locked.get(transfer.getSourceWalletId());
         Wallet target = locked.get(transfer.getTargetWalletId());
@@ -120,24 +119,17 @@ public class TransferService {
     }
 
     private Map<UUID, Wallet> lockAll(UUID... ids) {
-        List<UUID> distinct = new ArrayList<>(new LinkedHashSet<>(List.of(ids)));
-
-        List<Wallet> found = wallets.lockAllByIdOrdered(distinct);   // ONE query, locks all rows in id order
-
-        if (found.size() != distinct.size()) {
-            Set<UUID> foundIds = found.stream().map(Wallet::getId).collect(Collectors.toSet());
-            UUID missing = distinct.stream().filter(id -> !foundIds.contains(id)).findFirst().orElseThrow();
-            throw new DomainException(ErrorCode.WALLET_NOT_FOUND, "Wallet not found: " + missing);
+        Set<UUID> distinct = new LinkedHashSet<>(List.of(ids));
+        Map<UUID, Wallet> byId = new HashMap<>();
+        for (Wallet wallet : wallets.lockAllByIdOrdered(distinct)) {
+            byId.put(wallet.getId(), wallet);
         }
-
-        for (Wallet wallet : found) {
-            if (wallet.getStatus() != WalletStatus.ACTIVE) {
-                throw new DomainException(ErrorCode.WALLET_NOT_ACTIVE,
-                    "Wallet not active: " + wallet.getId() + " (status=" + wallet.getStatus() + ")");
+        for (UUID id : distinct) {
+            if (!byId.containsKey(id)) {
+                throw new DomainException(ErrorCode.WALLET_NOT_FOUND, "Wallet not found: " + id);
             }
         }
-
-        return found.stream().collect(Collectors.toMap(Wallet::getId, w -> w));
+        return byId;
     }
 
     private static Wallet requireUserWallet(Wallet wallet, String currency) {

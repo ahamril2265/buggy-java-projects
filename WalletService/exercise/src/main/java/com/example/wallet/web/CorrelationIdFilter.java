@@ -32,6 +32,10 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
                 : UUID.randomUUID().toString();
         MDC.put(MDC_KEY, correlationId);
         response.setHeader(HEADER, correlationId);
-        chain.doFilter(request, response);
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            MDC.remove(MDC_KEY);
+        }
     }
 }

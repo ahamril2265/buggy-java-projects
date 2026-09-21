@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/** Transfer fee: a percentage of the amount (in basis points), rounded half-up, with a minimum. */
 @Component
 public class FeePolicy {
 
