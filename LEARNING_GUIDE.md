@@ -42,16 +42,19 @@ expected. It is a learnable process, not talent.
 6. **Ask why it was possible** (missing test? unclear code?) so it does not return.
 
 ### 1.2 Reading a stack trace
+
 ```
 java.lang.NullPointerException: Cannot invoke "Driver.getId()" because "trip.getDriver()" is null
     at com.ridehail.service.TripService.getDriverStats(TripService.java:141)   <- first line in YOUR code
     at Main.scenario16...(Main.java:283)
 ```
+
 - The top line says **what** happened. The first frame in your own package says **where** it surfaced.
 - The bug is often *earlier*: who allowed `getDriver()` to be null? Trace the value backwards.
 - Ignore framework frames (Spring, Hibernate, JDK) until your own code does not explain it.
 
 ### 1.3 Techniques
+
 | Technique | When it helps |
 |---|---|
 | Run **one** test alone | Always. Removes noise. |
@@ -91,22 +94,27 @@ String b = new String("build");
 a == b        // false, different objects
 a.equals(b)   // true
 ```
+
 **Bug you met:** `JobRegistry.findByName` used `==` on strings. It passed for literals (Java
 reuses identical literals) and failed for strings built at runtime.
 
 ### 2.2 Wrapper types and the cache trap
+
 ```java
 Integer x = 127, y = 127;   x == y   // true  (small values are cached)
 Integer p = 1000, q = 1000; p == q   // false (two separate objects)
 ```
+
 Never compare `Integer`/`Long` with `==`. Use `.equals`, or unbox (`int a = ...`). Same bug class as
 `Job.hasSamePriorityAs`.
 
 ### 2.3 Shared mutable objects (aliasing)
+
 ```java
 public Job(Set<String> deps) { this.deps = deps; }        // keeps the caller's set!
 public Job(Set<String> deps) { this.deps = new HashSet<>(deps); }  // owns its copy
 ```
+
 If the caller later changes its set, the job changes silently. Copy on the way **in** and out
 (`List.copyOf`, `new ArrayList<>(x)`), or expose read-only views (`Collections.unmodifiableList`).
 **Bug you met:** `Member.getLoanHistory()` returned the live internal list; a caller could `clear()` it.
@@ -117,6 +125,7 @@ reason about and automatically thread-safe. Prefer `final` fields and records wh
 
 ### 2.5 Null
 `null` means "no object". Calling a method on it throws `NullPointerException`.
+
 - Decide, per method, whether `null` is allowed; document it.
 - Return an empty list, not `null`. Use `Optional<T>` for "maybe absent" results.
 - Validate inputs at the boundary of your code, not everywhere.
@@ -129,6 +138,7 @@ defensive copy and where do you make it?
 ## 3. Collections and the object contracts
 
 ### 3.1 Choosing a collection
+
 | Need | Use | Notes |
 |---|---|---|
 | Ordered, index access | `ArrayList` | Fast reads, slow middle inserts. |
@@ -141,19 +151,23 @@ defensive copy and where do you make it?
 ### 3.2 The equals / hashCode contract
 1. If `a.equals(b)` then `a.hashCode() == b.hashCode()`.
 2. Fields used in `hashCode` must not change while the object sits in a hash collection.
+
 ```java
 // BROKEN: hashCode uses `rating`, equals uses only `id`, and rating changes over time.
 public int hashCode() { return Objects.hash(id, rating); }
 ```
+
 After `driver.setRating(...)` the object hashes to a different bucket and `set.contains(driver)` says
 `false`. **Bug you met:** `Driver.hashCode` (RideHailingSystem). Rule: base both on the same
 **immutable identity** (usually `id`).
 
 ### 3.3 compareTo must be consistent with equals
 `TreeSet` treats `compareTo == 0` as "the same element" and silently drops the second one.
+
 ```java
 public int compareTo(Job o) { return Integer.compare(o.priority, priority); }  // ties = "equal"!
 ```
+
 Two different jobs with the same priority: one disappears. Add a tie-breaker (`... , id`).
 **Bug you met:** `Job.compareTo` and `JobReport.sortedByPriority`.
 
@@ -163,9 +177,11 @@ Two different jobs with the same priority: one disappears. Add a tie-breaker (`.
 - Build multi-key sorts with `Comparator.comparing(...).thenComparing(...)`.
 
 ### 3.5 Iterating while modifying
+
 ```java
 for (Trip t : trips) { if (stale(t)) trips.remove(t); }   // ConcurrentModificationException
 ```
+
 Use `Iterator.remove()` or `list.removeIf(...)`. **Bug you met:** `expireStaleRequests`.
 
 ### 3.6 Streams and collectors
@@ -173,11 +189,13 @@ Use `Iterator.remove()` or `list.removeIf(...)`. **Bug you met:** `expireStaleRe
 `groupingBy(...)` or supply a merge function.
 
 ### 3.7 An LRU cache in five lines
+
 ```java
 new LinkedHashMap<K,V>(16, 0.75f, true /* accessOrder */) {
     protected boolean removeEldestEntry(Map.Entry<K,V> e) { return size() > capacity; }
 };
 ```
+
 `accessOrder=true` moves an entry to the end on every read. With `false` it is a FIFO cache.
 **Bug you met:** `ResultCache` was configured `false`.
 
@@ -190,23 +208,28 @@ does `removeIf` do that a `for-each` loop cannot?
 
 ### 4.1 Boundary conditions
 The most common bug is off by one at an edge. Always test **below, at, and above** the limit.
+
 - `>` vs `>=`: "up to 500,000" allowed means `used + amount > limit` is the rejection test.
 - Half-open intervals: `[start, end)`. Two windows `9-10` and `10-11` **do not overlap**.
 - "Exactly 24 hours old has expired": is the boundary inclusive or exclusive? Write it down.
 
 ### 4.2 Interval overlap
 Two intervals overlap **iff** each starts before the other ends:
+
 ```java
 a.start.isBefore(b.end) && b.start.isBefore(a.end)      // AND, not OR
 ```
+
 **Bug you met:** `AvailabilityWindow.overlaps` used `||`.
 
 ### 4.3 Operator precedence
 `&&` binds tighter than `||`.
+
 ```java
 frozen || closed && amount > 1000     // means: frozen || (closed && amount > 1000)
 (frozen || closed) && amount > 1000   // what you might have meant
 ```
+
 When mixing them, add parentheses even if not strictly needed. **Bug you met:** the closed-account
 withdrawal check (BankTransactionSystem).
 
@@ -215,10 +238,12 @@ withdrawal check (BankTransactionSystem).
 
 ### 4.5 State machines
 Model lifecycles explicitly: a set of states and the **legal transitions** between them.
+
 ```
 ACTIVE <-> FROZEN -> CLOSED (terminal)
 REQUESTED -> ACCEPTED -> IN_PROGRESS -> COMPLETED   (or -> CANCELLED)
 ```
+
 - Check the *current* state before every transition (whitelist the legal ones; do not blacklist).
 - A condition that can never be true (`refunded > amount` when the cap prevents it) is a red flag.
 
@@ -248,21 +273,25 @@ a wallet. When is `catch (Exception e) {}` acceptable? (Almost never.)
 
 ### 5.1 Integer overflow
 Integers wrap around silently at their maximum.
+
 ```java
 Integer.MAX_VALUE + 1   // -2147483648
 Long.MAX_VALUE  + 1     // -9223372036854775808
 ```
+
 Use `Math.addExact / multiplyExact` (throws `ArithmeticException`), a wider type, or check first.
 Also beware `1 << n` (shift counts wrap: `1 << 32 == 1`) and computing then capping
 (`min(a*b, cap)` overflows *before* the cap).
 **Bugs you met:** backoff delay, priority comparator, wallet credit.
 
 ### 5.2 Integer division
+
 ```java
 int a = 3, b = 2;
 double r = a / b;          // 1.0, division happened on ints first
 double r = (double) a / b; // 1.5
 ```
+
 **Bug you met:** the surge-pricing ratio and `totalPages = total / size` (should round **up**).
 
 ### 5.3 Floating point is not exact
@@ -277,11 +306,13 @@ for money.**
 - Compare with `compareTo`, not `equals` (`2.0` vs `2.00` are not `equals`).
 
 ### 5.5 Rounding modes
+
 | Mode | 5.5 | 2.5 | -2.5 |
 |---|---|---|---|
 | `HALF_UP` | 6 | 3 | -3 |
 | `HALF_EVEN` (banker's) | 6 | 2 | -2 |
 | `DOWN` (truncate) | 5 | 2 | -2 |
+
 Truncating with `(int)` or `RoundingMode.DOWN` under-charges by up to one unit every time. Pick one
 mode deliberately and document it.
 
@@ -303,6 +334,7 @@ their steps in any order.
 
 ### 6.2 Race conditions
 `count++` is **three** steps: read, add, write.
+
 | Step | Thread A | Thread B | count |
 |---|---|---|---|
 | 1 | reads 100 | | 100 |
@@ -313,6 +345,7 @@ their steps in any order.
 That is a **lost update**. **Bug you met:** `JobMetrics` counter.
 
 ### 6.3 Making code thread-safe
+
 | Tool | Use for |
 |---|---|
 | `AtomicInteger/AtomicLong` | a single counter/flag |
@@ -320,21 +353,26 @@ That is a **lost update**. **Bug you met:** `JobMetrics` counter.
 | `ConcurrentHashMap`, `CopyOnWriteArrayList` | shared collections |
 | Immutable objects | share freely, no locks needed |
 | Confinement | keep data inside one thread |
+
 Prefer **not sharing** mutable state at all.
 
 ### 6.4 Check-then-act
+
 ```java
 if (balance >= amount) { balance -= amount; }   // another thread can act between the two lines
 ```
+
 The check and the action must be **atomic** (one lock, one transaction, one atomic operation).
 **Bug you met:** refunds (cumulative cap checked, then applied without a lock).
 
 ### 6.5 Deadlock
 Deadlock needs a **cycle** of waiting:
+
 ```
 Transfer A->B: locks A, then wants B
 Transfer B->A: locks B, then wants A          -> both wait forever
 ```
+
 **Fix: lock ordering.** Always acquire locks in one global order (e.g. ascending id), regardless of
 which the caller listed first. **Bug you met:** `TransferService.lockAll`.
 
@@ -371,6 +409,7 @@ clear error (`WALLET_ALREADY_EXISTS`), with the constraint as the race-proof bac
 
 ### 7.3 Transactions and ACID
 A **transaction** groups statements into one unit.
+
 - **A**tomic: all or nothing. **C**onsistent: constraints hold. **I**solated: concurrent transactions
   do not see each other's half-finished work. **D**urable: committed data survives a crash.
 - A failed transfer must roll back **everything** (debit, credit, ledger lines, transfer row).
@@ -391,6 +430,7 @@ Set Hibernate to `validate` (not `update`) so a mismatch fails fast.
 ### 7.6 The ORM and the persistence context (JPA/Hibernate)
 An ORM maps rows to objects. The important idea: within a transaction Hibernate keeps a
 **persistence context**: one object per row, cached.
+
 - **Dirty checking:** you change an entity's fields and Hibernate writes an `UPDATE` at **flush**
   (usually at commit). You do not call `save` for updates of managed entities.
 - **First-level cache:** a query returning a row that is already in the context gives you the
@@ -422,6 +462,7 @@ sometimes not reflect the latest DB row? Optimistic vs pessimistic: when would y
 ## 8. Web APIs and HTTP
 
 ### 8.1 HTTP basics
+
 | Method | Meaning | Idempotent? |
 |---|---|---|
 | GET | read | yes, safe |
@@ -442,11 +483,13 @@ stable machine-readable `code` and a `correlationId`. Never leak stack traces or
 
 ### 8.4 Idempotency (a key production concept)
 Networks fail and clients retry. A retried `POST /transfers` must **not move money twice**.
+
 - Client sends `Idempotency-Key: <uuid>`. Server stores (key, request fingerprint, response).
 - Same key + **same** request: replay the stored response (same status code) without redoing the work.
 - Same key + **different** request: reject (`422`). So the fingerprint must cover the **whole** request.
 - Reserve the key **in the same transaction** as the operation, so two concurrent duplicates cannot both run.
 - Do not cache failures: a rolled-back attempt leaves no record, so the client can retry.
+
 **Bugs you met:** fingerprint hashed only the request *type*; replay returned `200` not `201`.
 
 ### 8.5 Validation
@@ -469,6 +512,7 @@ the request body? How many pages for 25 items at size 10?
 ## 9. Time, dates and time zones
 
 ### 9.1 The right types (Java `java.time`)
+
 | Type | Meaning |
 |---|---|
 | `Instant` | a point on the global timeline (store this) |
@@ -480,10 +524,12 @@ Store and compare **instants in UTC**. Convert to a zone only for display or cal
 
 ### 9.2 Daylight saving time
 "Tomorrow at 09:00" is **not** "now + 24 hours": on the spring-forward day a day is 23 hours long.
+
 ```java
 lastRun.plusHours(24)   // drifts across DST -> 10:00 local
 lastRun.plusDays(1)     // same wall-clock time -> 09:00 local
 ```
+
 **Bug you met:** `DailySchedule`. Use calendar arithmetic (`plusDays`) for calendar rules.
 
 ### 9.3 Inject the clock
@@ -506,6 +552,7 @@ Why inject a `Clock`?
 - **Integration:** several parts with a real database and HTTP layer (`WalletApiTest`, MockMvc).
 - **Concurrency/load:** many threads on the same data.
 - **End-to-end:** the deployed system.
+
 Many fast unit tests, fewer integration tests, few end-to-end (the "test pyramid").
 
 ### 10.2 What makes a good test
@@ -544,10 +591,12 @@ Keep fields private; expose behaviour, not raw state. `Wallet.debit(amount)` enf
 public `setBalance` would let anyone break them. Put the rule where the data lives.
 
 ### 11.2 Inheritance and polymorphism
+
 ```java
 abstract class Vehicle { abstract double calculateFare(double miles, double minutes); }
 class PremiumVehicle extends Vehicle { ... }
 ```
+
 - A subclass must honour the parent's contract (Liskov): a `Premium` fare must still include the base fare.
 - `super(...)` runs first; a local variable with the same name as a field **does not** assign the field
   (`int capacity = seatCount;` created a throwaway local).
@@ -568,8 +617,10 @@ make rules easy to test and change.
 
 ### 11.5 Design for invariants
 Write down what must **always** be true and enforce it in one place:
+
 - balance never negative; refunds never exceed the transfer;
 - ledger entries of a transfer sum to zero; balance == sum of its entries.
+
 Then write tests that assert the invariants after every kind of operation, including under load.
 
 ### 11.6 Copy-paste is a bug factory
@@ -598,6 +649,7 @@ missed the better combination `[2, 2]` versus `[3]`. Greedy is not always optima
 
 ### 12.4 Graphs and dependency ordering
 Jobs with dependencies form a directed graph.
+
 - **Topological sort** (DFS): visit dependencies first, then the node.
 - **Cycle detection** needs **two** markers: "in progress" (on the current path) and "done". Using one
   visited set reports a shared dependency (diamond `a->b, a->c, b->d, c->d`) as a cycle.
@@ -618,12 +670,14 @@ misreport a diamond as a cycle? What is the cost of `contains` on an `ArrayList`
 ## 13. Everyday tooling
 
 ### 13.1 Git (learn this first, you will use it daily)
+
 ```bash
 git status ; git diff ; git add <files> ; git commit -m "why, not what"
 git switch -c feature/x        # branch
 git pull --rebase ; git push   # share
 git log --oneline --graph ; git bisect   # history and bug hunting
 ```
+
 Small commits with clear messages. Never commit secrets (`.env`, keys). Review your own diff before pushing.
 Undo safely with `git restore` / `git revert`; be careful with `reset --hard` and force-push.
 
