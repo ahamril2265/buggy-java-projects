@@ -6,6 +6,7 @@ import com.example.wallet.domain.IdempotencyRecord;
 import com.example.wallet.repository.IdempotencyRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.PessimisticLockingFailureException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.support.TransactionTemplate;
 import tools.jackson.databind.ObjectMapper;
@@ -53,7 +54,7 @@ public class IdempotentExecutor {
             try {
                 return transactions.execute(status ->
                         executeInTransaction(key, operation, requestHash, responseType, successStatus, action));
-            } catch (DataIntegrityViolationException | PessimisticLockingFailureException lostRace) {
+            } catch (DataIntegrityViolationException | PessimisticLockingFailureException | ObjectOptimisticLockingFailureException lostRace) {
                 // Another request with the same key won the race; loop to replay its result.
                 pause(attempt);
             }
@@ -97,12 +98,14 @@ public class IdempotentExecutor {
         }
     }
 
-    private static void pause(int attempt) {
+    private void pause(int attempt) {
+        long baseMillis = Math.min(50L * (1L << Math.min(attempt, 6)), 500L); // cap growth
+        long jitter = ThreadLocalRandom.current().nextLong(baseMillis / 2, baseMillis + 1);
         try {
-            Thread.sleep(25L * attempt);
+            Thread.sleep(jitter);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new DomainException(ErrorCode.REQUEST_IN_PROGRESS, "Interrupted while waiting for a duplicate request");
+            throw new DomainException(ErrorCode.REQUEST_IN_PROGRESS, "Interrupted while retrying");
         }
     }
 }

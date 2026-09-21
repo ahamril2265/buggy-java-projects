@@ -1,0 +1,856 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.example:wallet-service >---------------------
+[INFO] Building wallet-service 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ wallet-service ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ wallet-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ wallet-service ---
+[INFO] skip non existing resourceDirectory C:\Users\ahamr\Desktop\Projects\Debug\WalletService\exercise\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ wallet-service ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ wallet-service ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.wallet.service.ConcurrencyTest
+22:57:42.675 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.wallet.service.ConcurrencyTest]: ConcurrencyTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:57:42.758 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.wallet.WalletApplication for test class com.example.wallet.service.ConcurrencyTest
+22:57:42.808 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.wallet.service.ConcurrencyTest]: ConcurrencyTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:57:42.808 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.wallet.support.ApiTest]: ApiTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:57:42.812 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.wallet.WalletApplication for test class com.example.wallet.service.ConcurrencyTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-09-20T22:57:43.016+05:30  INFO [] 40376 --- [wallet-service] [           main] c.e.wallet.service.ConcurrencyTest       : Starting ConcurrencyTest using Java 26.0.2 with PID 40376 (started by ahamr in C:\Users\ahamr\Desktop\Projects\Debug\WalletService\exercise)
+2026-09-20T22:57:43.017+05:30  INFO [] 40376 --- [wallet-service] [           main] c.e.wallet.service.ConcurrencyTest       : No active profile set, falling back to 1 default profile: "default"
+2026-09-20T22:57:43.472+05:30  INFO [] 40376 --- [wallet-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-20T22:57:43.512+05:30  INFO [] 40376 --- [wallet-service] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 4 JPA repository interfaces.
+2026-09-20T22:57:43.907+05:30  INFO [] 40376 --- [wallet-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-20T22:57:44.055+05:30  INFO [] 40376 --- [wallet-service] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:wallet user=SA
+2026-09-20T22:57:44.056+05:30  INFO [] 40376 --- [wallet-service] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-20T22:57:44.062+05:30  INFO [] 40376 --- [wallet-service] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:wallet (H2 2.4)
+2026-09-20T22:57:44.092+05:30  WARN [] 40376 --- [wallet-service] [           main] o.f.c.internal.database.base.Database    : Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026-09-20T22:57:44.108+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-09-20T22:57:44.110+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.008s)
+2026-09-20T22:57:44.113+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-09-20T22:57:44.130+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-09-20T22:57:44.136+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - schema"
+2026-09-20T22:57:44.150+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - seed fee wallets"
+2026-09-20T22:57:44.155+05:30  INFO [] 40376 --- [wallet-service] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.010s)
+2026-09-20T22:57:44.235+05:30  INFO [] 40376 --- [wallet-service] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-20T22:57:44.280+05:30  INFO [] 40376 --- [wallet-service] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-09-20T22:57:44.551+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-20T22:57:44.592+05:30  INFO [] 40376 --- [wallet-service] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:wallet]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: wallet/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-20T22:57:45.098+05:30  INFO [] 40376 --- [wallet-service] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-20T22:57:45.115+05:30  INFO [] 40376 --- [wallet-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-20T22:57:45.191+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-20T22:57:46.044+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-09-20T22:57:46.044+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-09-20T22:57:46.048+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 3 endpoints beneath base path '/actuator'
+2026-09-20T22:57:46.054+05:30  INFO [] 40376 --- [wallet-service] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 10 ms
+2026-09-20T22:57:46.090+05:30  INFO [] 40376 --- [wallet-service] [           main] c.e.wallet.service.ConcurrencyTest       : Started ConcurrencyTest in 3.244 seconds (process running for 3.878)
+2026-09-20T22:57:46.202+05:30  INFO [] 40376 --- [wallet-service] [           main] c.e.w.service.FeeWalletStartupCheck      : Fee wallets verified for currencies [USD, EUR, GBP]
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-18daeadf-febf-4608-8aa9-379465ad4cca"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"efd12aab-54d9-4c7a-8223-408ae80f2f51", Location:"/api/v1/wallets/ad83649b-5fda-421e-9c9f-a6e3416d8b72", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"ad83649b-5fda-421e-9c9f-a6e3416d8b72","ownerId":"owner-18daeadf-febf-4608-8aa9-379465ad4cca","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/ad83649b-5fda-421e-9c9f-a6e3416d8b72
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/ad83649b-5fda-421e-9c9f-a6e3416d8b72/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"13904f43-fcda-459f-9bde-abdc61783cfe", Content-Length:"39"]
+             Body = {"amountMinor":200000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"47a5e04b-b119-4ea0-9d81-e1a2e74618c8", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":1,"transactionId":"2ec60d82-3bad-4c44-8e88-463db8625f61","walletId":"ad83649b-5fda-421e-9c9f-a6e3416d8b72","type":"DEPOSIT","amountMinor":200000,"balanceAfterMinor":200000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-438cf426-efb1-4361-b22d-e3b42b968c67"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"02b310d8-f1b5-4a34-9930-2a7f527ded45", Location:"/api/v1/wallets/2905f3c6-2b2f-4e56-be9b-1983ae24d337", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"2905f3c6-2b2f-4e56-be9b-1983ae24d337","ownerId":"owner-438cf426-efb1-4361-b22d-e3b42b968c67","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/2905f3c6-2b2f-4e56-be9b-1983ae24d337
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/2905f3c6-2b2f-4e56-be9b-1983ae24d337/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"5dfc4c43-efc8-4511-97b4-9f665011e1f0", Content-Length:"39"]
+             Body = {"amountMinor":200000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"9d600bbd-46c6-4f58-a58b-d4122de037e3", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":2,"transactionId":"19ae0ad0-ba48-4f3a-88c9-35a156bc8358","walletId":"2905f3c6-2b2f-4e56-be9b-1983ae24d337","type":"DEPOSIT","amountMinor":200000,"balanceAfterMinor":200000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-9e01d5bc-9f6f-44f0-90f1-ee63b40c1eb4"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"595837c7-1440-407f-b561-6456f94c54ad", Location:"/api/v1/wallets/babad585-7ebf-473f-9ede-440f29060615", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"babad585-7ebf-473f-9ede-440f29060615","ownerId":"owner-9e01d5bc-9f6f-44f0-90f1-ee63b40c1eb4","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/babad585-7ebf-473f-9ede-440f29060615
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/babad585-7ebf-473f-9ede-440f29060615/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"c4572364-863c-404b-9cde-a73f8addaf40", Content-Length:"39"]
+             Body = {"amountMinor":200000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"a16bcba4-e7ab-41b1-b8b8-2702ff8893fa", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":3,"transactionId":"131e9909-5b42-46e2-b1c7-68d7769be62e","walletId":"babad585-7ebf-473f-9ede-440f29060615","type":"DEPOSIT","amountMinor":200000,"balanceAfterMinor":200000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-9c2afc51-3afb-4a8b-a462-a2f01d373a8f"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"9cfd9a23-8ea8-4623-bc9d-e2c87315aad7", Location:"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"b891c927-3683-42a4-8eab-4003ecaf9d26","ownerId":"owner-9c2afc51-3afb-4a8b-a462-a2f01d373a8f","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26
+          Cookies = []
+2026-09-20T22:57:47.166+05:30  WARN [91761528-74c5-441f-8146-c523f5b0f439] 40376 --- [wallet-service] [pool-5-thread-8] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [c707bd44-266c-44af-b737-7fe295bdf242] 40376 --- [wallet-service] [ool-5-thread-10] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [635e5da3-963d-4235-b65c-12763b3d450d] 40376 --- [wallet-service] [ool-5-thread-11] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [2f8a84bc-3f68-4c99-8536-be24cc467b26] 40376 --- [wallet-service] [pool-5-thread-2] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [635e5da3-963d-4235-b65c-12763b3d450d] 40376 --- [wallet-service] [ool-5-thread-11] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [6e7c507d-6bca-4b4d-9e83-f215bf21885f] 40376 --- [wallet-service] [pool-5-thread-9] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [c707bd44-266c-44af-b737-7fe295bdf242] 40376 --- [wallet-service] [ool-5-thread-10] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [fe546a7a-6fa6-4c94-a700-b279c6c60c57] 40376 --- [wallet-service] [pool-5-thread-1] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [6e7c507d-6bca-4b4d-9e83-f215bf21885f] 40376 --- [wallet-service] [pool-5-thread-9] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [30ba9427-cc34-4e68-9ce5-5cc5e6b4aad2] 40376 --- [wallet-service] [pool-5-thread-3] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [59cbcf9d-7371-43c0-adea-0a4afffd1c90] 40376 --- [wallet-service] [pool-5-thread-6] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [a26afe73-7fb5-4ab9-8113-bf9ebc81dfac] 40376 --- [wallet-service] [pool-5-thread-7] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.166+05:30  WARN [91761528-74c5-441f-8146-c523f5b0f439] 40376 --- [wallet-service] [pool-5-thread-8] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [a26afe73-7fb5-4ab9-8113-bf9ebc81dfac] 40376 --- [wallet-service] [pool-5-thread-7] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [2f8a84bc-3f68-4c99-8536-be24cc467b26] 40376 --- [wallet-service] [pool-5-thread-2] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [30ba9427-cc34-4e68-9ce5-5cc5e6b4aad2] 40376 --- [wallet-service] [pool-5-thread-3] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [fe546a7a-6fa6-4c94-a700-b279c6c60c57] 40376 --- [wallet-service] [pool-5-thread-1] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.166+05:30  WARN [59cbcf9d-7371-43c0-adea-0a4afffd1c90] 40376 --- [wallet-service] [pool-5-thread-6] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.167+05:30  WARN [76a9e5c4-02b0-4801-804b-3eacb50b559d] 40376 --- [wallet-service] [pool-5-thread-4] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.167+05:30  WARN [76a9e5c4-02b0-4801-804b-3eacb50b559d] 40376 --- [wallet-service] [pool-5-thread-4] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:47.171+05:30  WARN [c1dce215-1d31-4980-8e0d-c89cd3723391] 40376 --- [wallet-service] [pool-5-thread-5] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:47.171+05:30  WARN [c1dce215-1d31-4980-8e0d-c89cd3723391] 40376 --- [wallet-service] [pool-5-thread-5] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 195 */ '6df3c812-8c19-4c82-a9e7-1653ee816243' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-df79486f-3246-416a-aaaa-d3ca354f10cc"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"b5e47e0e-ac7e-44ea-8e99-9ba853224d83", Location:"/api/v1/wallets/1bcc1afd-d18d-472a-a580-1ce194db8f29", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"1bcc1afd-d18d-472a-a580-1ce194db8f29","ownerId":"owner-df79486f-3246-416a-aaaa-d3ca354f10cc","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/1bcc1afd-d18d-472a-a580-1ce194db8f29
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-2c82d658-4d5f-4404-a173-cc307d778e1a"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"d2f7b1d6-4b21-4ed1-aee4-344f1dea0c82", Location:"/api/v1/wallets/af92253c-1e6d-4a1e-b323-cde7bab39c81", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"af92253c-1e6d-4a1e-b323-cde7bab39c81","ownerId":"owner-2c82d658-4d5f-4404-a173-cc307d778e1a","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/af92253c-1e6d-4a1e-b323-cde7bab39c81
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/af92253c-1e6d-4a1e-b323-cde7bab39c81/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"552529d0-ba14-4c32-b684-472fd14be5db", Content-Length:"39"]
+             Body = {"amountMinor":100000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"bc311fd7-14d5-423c-8f44-2c8433c7183f", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":274,"transactionId":"bb8009b5-4bee-44ac-9a65-51696a2f8c17","walletId":"af92253c-1e6d-4a1e-b323-cde7bab39c81","type":"DEPOSIT","amountMinor":100000,"balanceAfterMinor":100000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-ae5929a9-6153-42d7-92da-7a6ffaabe9c1"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"710a028d-ebdd-4a0e-a56a-5793ae8a6afb", Location:"/api/v1/wallets/1d022573-66ae-42b0-8d0a-01f7cbfe3775", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"1d022573-66ae-42b0-8d0a-01f7cbfe3775","ownerId":"owner-ae5929a9-6153-42d7-92da-7a6ffaabe9c1","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/1d022573-66ae-42b0-8d0a-01f7cbfe3775
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/1d022573-66ae-42b0-8d0a-01f7cbfe3775/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"6753202e-78d0-48d0-8ed7-0341f438681e", Content-Length:"39"]
+             Body = {"amountMinor":100000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"d9391a07-5c2b-48a4-a879-9c10d3ad75c1", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":275,"transactionId":"238fe363-7795-472d-b67e-1ace11ae3af1","walletId":"1d022573-66ae-42b0-8d0a-01f7cbfe3775","type":"DEPOSIT","amountMinor":100000,"balanceAfterMinor":100000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2026-09-20T22:57:48.254+05:30  WARN [599a6168-8396-446d-b120-8bc51e21f2d4] 40376 --- [wallet-service] [pool-9-thread-7] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [54dc9a1b-8083-47fa-a8e4-3a54c7f384fc] 40376 --- [wallet-service] [ool-9-thread-10] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [599a6168-8396-446d-b120-8bc51e21f2d4] 40376 --- [wallet-service] [pool-9-thread-7] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [2324fc96-8e22-48ff-a6ec-de6256e838de] 40376 --- [wallet-service] [pool-9-thread-4] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [54dc9a1b-8083-47fa-a8e4-3a54c7f384fc] 40376 --- [wallet-service] [ool-9-thread-10] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [5de3b3c9-749b-4399-b48c-c6bc94dfb3a7] 40376 --- [wallet-service] [pool-9-thread-9] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [39ae122e-0c17-4579-b644-8387a861271f] 40376 --- [wallet-service] [pool-9-thread-6] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [5de3b3c9-749b-4399-b48c-c6bc94dfb3a7] 40376 --- [wallet-service] [pool-9-thread-9] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [39ae122e-0c17-4579-b644-8387a861271f] 40376 --- [wallet-service] [pool-9-thread-6] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [4bff21bd-faa8-4d8b-a55b-8c81af026bd5] 40376 --- [wallet-service] [pool-9-thread-2] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [0d84de98-f139-4c0c-840d-fd80015f577f] 40376 --- [wallet-service] [pool-9-thread-3] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [0d84de98-f139-4c0c-840d-fd80015f577f] 40376 --- [wallet-service] [pool-9-thread-3] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [a48deb0b-a1f0-45b0-b606-09c71984f9dc] 40376 --- [wallet-service] [pool-9-thread-8] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [e26ca799-49ff-43c2-ba3e-a88f57ca4a96] 40376 --- [wallet-service] [pool-9-thread-1] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-20T22:57:48.254+05:30  WARN [2324fc96-8e22-48ff-a6ec-de6256e838de] 40376 --- [wallet-service] [pool-9-thread-4] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [e26ca799-49ff-43c2-ba3e-a88f57ca4a96] 40376 --- [wallet-service] [pool-9-thread-1] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [4bff21bd-faa8-4d8b-a55b-8c81af026bd5] 40376 --- [wallet-service] [pool-9-thread-2] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+2026-09-20T22:57:48.254+05:30  WARN [a48deb0b-a1f0-45b0-b606-09c71984f9dc] 40376 --- [wallet-service] [pool-9-thread-8] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "public.CONSTRAINT_5 INDEX public.PRIMARY_KEY_5 ON public.idempotency_keys(idempotency_key) VALUES ( /* 949 */ '5611a875-4222-4392-b7e2-34484a41236b' )"; SQL statement:
+insert into idempotency_keys (created_at,operation,request_hash,response_body,response_status,idempotency_key) values (?,?,?,?,?,?) [23505-240]
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-05db2e86-dfc7-46f8-9b5d-50a459a83f03"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"1e3be9bf-7429-4b37-9baf-fce5b8e99a84", Location:"/api/v1/wallets/e9ab590a-393d-4007-889e-f05de609e13c", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"e9ab590a-393d-4007-889e-f05de609e13c","ownerId":"owner-05db2e86-dfc7-46f8-9b5d-50a459a83f03","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/e9ab590a-393d-4007-889e-f05de609e13c
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/e9ab590a-393d-4007-889e-f05de609e13c/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"335761ab-3ccc-4ed3-9df7-6613397ebdbd", Content-Length:"38"]
+             Body = {"amountMinor":10000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"d6ba0be5-826c-4fcf-b4c4-c6a94c8a57ee", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":1821,"transactionId":"d2a6ac15-1217-4b49-8cb6-816911a47d59","walletId":"e9ab590a-393d-4007-889e-f05de609e13c","type":"DEPOSIT","amountMinor":10000,"balanceAfterMinor":10000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-1c18a932-bf58-4ffa-85dd-dd0103abbb95"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"548370c9-5c37-485f-940e-858f05477fef", Location:"/api/v1/wallets/1ba4917b-7426-431c-b13e-4bcf53d0a67f", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","ownerId":"owner-1c18a932-bf58-4ffa-85dd-dd0103abbb95","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/1ba4917b-7426-431c-b13e-4bcf53d0a67f
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"73"]
+             Body = {"currency":"USD","ownerId":"owner-fd366dd5-8649-4109-9c32-6c6b24370979"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#create(CreateWalletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"20c17002-f8af-4de8-a5a9-8b993b16dce1", Location:"/api/v1/wallets/9a927ab0-2619-464e-b4fe-8cea03002fe7", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"id":"9a927ab0-2619-464e-b4fe-8cea03002fe7","ownerId":"owner-fd366dd5-8649-4109-9c32-6c6b24370979","currency":"USD","balanceMinor":0,"status":"ACTIVE","createdAt":"2026-01-15T10:00:00Z","updatedAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = /api/v1/wallets/9a927ab0-2619-464e-b4fe-8cea03002fe7
+          Cookies = []
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/v1/wallets/9a927ab0-2619-464e-b4fe-8cea03002fe7/deposits
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Idempotency-Key:"a06da9c3-876e-4bfb-98d5-8e8a795513a1", Content-Length:"40"]
+             Body = {"amountMinor":1000000,"currency":"USD"}
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.wallet.web.WalletController
+           Method = com.example.wallet.web.WalletController#deposit(UUID, String, MoneyRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [X-Correlation-Id:"455ae681-dfa0-4aa7-a987-3a66adba14bb", Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"entryId":1826,"transactionId":"4f14ec34-47bd-4e5d-aade-86b5a92cea0e","walletId":"9a927ab0-2619-464e-b4fe-8cea03002fe7","type":"DEPOSIT","amountMinor":1000000,"balanceAfterMinor":1000000,"createdAt":"2026-01-15T10:00:00Z"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+[ERROR] Tests run: 8, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 5.747 s <<< FAILURE! -- in com.example.wallet.service.ConcurrencyTest
+[ERROR] com.example.wallet.service.ConcurrencyTest.ledgerStaysConsistentAfterMixedConcurrentLoad -- Time elapsed: 0.675 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"51bb72f4-2bf8-41e0-b11e-4b3e6990901f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"17e6b3dc-2fd8-4e08-bcb4-5b83e02ab041"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e4d6d845-7114-47c9-bc99-fc871d5e04b3"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3d29a273-bf1e-4afa-b21f-4cf48a5410c2"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cdc9765d-b0e7-472a-83fe-f20b4d917f17"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"2941e97f-8735-469e-85b3-0296ba430ba1"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"dcf50c23-6391-419b-926b-369b9ea0e885"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3626cb3c-ad39-4b4c-bc43-54bd276edd22"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"789bc9be-351e-42ed-8557-437bff5495ab"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ded17022-3efb-40a0-93a3-94a0f91884f8"}]] 
+expected: 60L
+ but was: 50L
+	at com.example.wallet.service.ConcurrencyTest.ledgerStaysConsistentAfterMixedConcurrentLoad(ConcurrencyTest.java:220)
+
+[ERROR] com.example.wallet.service.ConcurrencyTest.concurrentDepositsAreAllApplied -- Time elapsed: 0.272 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"198a20b0-c1c1-4bff-9c66-14d6e2a8c8f3"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"8682ca80-df04-47a9-a9ef-0876952225fc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"7619e1db-c52a-422b-a04f-02dd6c8d7aed"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ce9c0a48-46b5-435b-a895-58daaf3d7fbd"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"03dbcfcf-c509-443e-814f-be07bae1b260"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ef0e5b56-3374-40f1-89d0-0f67f2109622"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"6a7c5b72-4ea6-469c-a833-309f817fb3a7"}]] 
+expected: 40L
+ but was: 33L
+	at com.example.wallet.service.ConcurrencyTest.concurrentDepositsAreAllApplied(ConcurrencyTest.java:80)
+
+[ERROR] com.example.wallet.service.ConcurrencyTest.duplicateRequestsWithTheSameKeyExecuteExactlyOnce -- Time elapsed: 0.045 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[[200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}]] 
+expected: 12L
+ but was: 1L
+	at com.example.wallet.service.ConcurrencyTest.duplicateRequestsWithTheSameKeyExecuteExactlyOnce(ConcurrencyTest.java:138)
+
+[ERROR] com.example.wallet.service.ConcurrencyTest.transfersInOppositeDirectionsDoNotDeadlock -- Time elapsed: 0.880 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"0dc8ebdb-f941-4b06-bcdc-70d363487ae0"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"fbeb4ada-efc2-4ac7-a821-0c86f2e5bacc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"2d0c3b1a-ab4f-4fac-8ec5-b6f780107241"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cb0a0942-458b-413f-b7ed-b8648446ea88"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"b508a0bd-defd-4979-9eb3-d5d1d7cc9b93"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"f20aa53c-7722-447e-b631-f9bdb9e68216"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3e884e1c-8781-4b15-a0c9-38ddaf2c89c7"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"d2a77d65-762e-42f3-b44c-1e9bd23a15eb"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"502c20d7-9649-4178-a732-57690aba648c"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"9b615c5b-adf8-465a-9b1f-f695f14f2248"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3c154937-da18-4f10-a056-062d75d0edeb"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ae722710-cb03-43d3-bd6e-27ba811d2f09"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"96131fdf-7eda-442e-a879-d144908f23bc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e39004e8-1817-492a-b03d-8e6bbbc3cf4f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cbd0be9d-be17-4803-89cb-c4686d0be244"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"5f431db2-369f-4b70-909f-05fe8a4f3c99"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3b0bdf5b-119b-4602-b77c-5452e2605748"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e8ccf4b4-02bc-4a23-8ca8-2c469b8f828f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3e2b3858-c515-4430-b267-ddef88d90780"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"56fe4fca-5839-410b-aaa6-92bcf6e2c1dd"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"0ee39fc4-b7e1-4e7f-86ad-efd61a0aadc4"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"298c2407-4995-4da4-8ff3-587d51246bd0"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"deadcb39-1fee-4679-a590-a5fdf86188d0"}]] 
+expected: 400L
+ but was: 377L
+	at com.example.wallet.service.ConcurrencyTest.transfersInOppositeDirectionsDoNotDeadlock(ConcurrencyTest.java:99)
+
+[ERROR] com.example.wallet.service.ConcurrencyTest.duplicateTransfersWithTheSameKeyMoveMoneyOnce -- Time elapsed: 0.040 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[[200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}]] 
+expected: 10L
+ but was: 1L
+	at com.example.wallet.service.ConcurrencyTest.duplicateTransfersWithTheSameKeyMoveMoneyOnce(ConcurrencyTest.java:156)
+
+[ERROR] com.example.wallet.service.ConcurrencyTest.concurrentWithdrawalsRespectTheDailyLimit -- Time elapsed: 0.026 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+expected: 5L
+ but was: 4L
+	at com.example.wallet.service.ConcurrencyTest.concurrentWithdrawalsRespectTheDailyLimit(ConcurrencyTest.java:194)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   ConcurrencyTest.concurrentDepositsAreAllApplied:80 [[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"198a20b0-c1c1-4bff-9c66-14d6e2a8c8f3"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"8682ca80-df04-47a9-a9ef-0876952225fc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"7619e1db-c52a-422b-a04f-02dd6c8d7aed"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ce9c0a48-46b5-435b-a895-58daaf3d7fbd"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"03dbcfcf-c509-443e-814f-be07bae1b260"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ef0e5b56-3374-40f1-89d0-0f67f2109622"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/wallets/b891c927-3683-42a4-8eab-4003ecaf9d26/deposits","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"6a7c5b72-4ea6-469c-a833-309f817fb3a7"}]] 
+expected: 40L
+ but was: 33L
+[ERROR]   ConcurrencyTest.concurrentWithdrawalsRespectTheDailyLimit:194 
+expected: 5L
+ but was: 4L
+[ERROR]   ConcurrencyTest.duplicateRequestsWithTheSameKeyExecuteExactlyOnce:138 [[200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"entryId":238,"transactionId":"9b6bff80-7667-4680-955d-e26107d72ee3","walletId":"1bcc1afd-d18d-472a-a580-1ce194db8f29","type":"DEPOSIT","amountMinor":250,"balanceAfterMinor":250,"createdAt":"2026-01-15T10:00:00Z"}]] 
+expected: 12L
+ but was: 1L
+[ERROR]   ConcurrencyTest.duplicateTransfersWithTheSameKeyMoveMoneyOnce:156 [[200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}, 200 {"id":"7f1d0082-f607-4bb4-a98e-a7e57781332b","sourceWalletId":"e9ab590a-393d-4007-889e-f05de609e13c","targetWalletId":"1ba4917b-7426-431c-b13e-4bcf53d0a67f","amountMinor":1000,"feeMinor":5,"currency":"USD","status":"COMPLETED","refundedMinor":0,"createdAt":"2026-01-15T10:00:00Z"}]] 
+expected: 10L
+ but was: 1L
+[ERROR]   ConcurrencyTest.ledgerStaysConsistentAfterMixedConcurrentLoad:220 [[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"51bb72f4-2bf8-41e0-b11e-4b3e6990901f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"17e6b3dc-2fd8-4e08-bcb4-5b83e02ab041"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e4d6d845-7114-47c9-bc99-fc871d5e04b3"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3d29a273-bf1e-4afa-b21f-4cf48a5410c2"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cdc9765d-b0e7-472a-83fe-f20b4d917f17"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"2941e97f-8735-469e-85b3-0296ba430ba1"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"dcf50c23-6391-419b-926b-369b9ea0e885"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3626cb3c-ad39-4b4c-bc43-54bd276edd22"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"789bc9be-351e-42ed-8557-437bff5495ab"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ded17022-3efb-40a0-93a3-94a0f91884f8"}]] 
+expected: 60L
+ but was: 50L
+[ERROR]   ConcurrencyTest.transfersInOppositeDirectionsDoNotDeadlock:99 [[409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"0dc8ebdb-f941-4b06-bcdc-70d363487ae0"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"fbeb4ada-efc2-4ac7-a821-0c86f2e5bacc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"2d0c3b1a-ab4f-4fac-8ec5-b6f780107241"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cb0a0942-458b-413f-b7ed-b8648446ea88"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"b508a0bd-defd-4979-9eb3-d5d1d7cc9b93"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"f20aa53c-7722-447e-b631-f9bdb9e68216"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3e884e1c-8781-4b15-a0c9-38ddaf2c89c7"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"d2a77d65-762e-42f3-b44c-1e9bd23a15eb"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"502c20d7-9649-4178-a732-57690aba648c"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"9b615c5b-adf8-465a-9b1f-f695f14f2248"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3c154937-da18-4f10-a056-062d75d0edeb"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"ae722710-cb03-43d3-bd6e-27ba811d2f09"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"96131fdf-7eda-442e-a879-d144908f23bc"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e39004e8-1817-492a-b03d-8e6bbbc3cf4f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"cbd0be9d-be17-4803-89cb-c4686d0be244"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"5f431db2-369f-4b70-909f-05fe8a4f3c99"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3b0bdf5b-119b-4602-b77c-5452e2605748"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"e8ccf4b4-02bc-4a23-8ca8-2c469b8f828f"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"3e2b3858-c515-4430-b267-ddef88d90780"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"56fe4fca-5839-410b-aaa6-92bcf6e2c1dd"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"0ee39fc4-b7e1-4e7f-86ad-efd61a0aadc4"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"298c2407-4995-4da4-8ff3-587d51246bd0"}, 409 {"detail":"A request with this Idempotency-Key is still being processed","instance":"/api/v1/transfers","status":409,"title":"REQUEST_IN_PROGRESS","code":"REQUEST_IN_PROGRESS","correlationId":"deadcb39-1fee-4679-a590-a5fdf86188d0"}]] 
+expected: 400L
+ but was: 377L
+[INFO] 
+[ERROR] Tests run: 8, Failures: 6, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.264 s
+[INFO] Finished at: 2026-09-20T22:57:48+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project wallet-service: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\ahamr\Desktop\Projects\Debug\WalletService\exercise\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

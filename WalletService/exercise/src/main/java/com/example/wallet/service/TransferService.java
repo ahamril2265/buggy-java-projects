@@ -5,6 +5,7 @@ import com.example.wallet.domain.EntryType;
 import com.example.wallet.domain.ErrorCode;
 import com.example.wallet.domain.Transfer;
 import com.example.wallet.domain.Wallet;
+import com.example.wallet.domain.WalletStatus;
 import com.example.wallet.repository.TransferRepository;
 import com.example.wallet.repository.WalletRepository;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -19,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Service
 public class TransferService {
@@ -54,7 +57,7 @@ public class TransferService {
     public Transfer transfer(UUID sourceId, UUID targetId, long amountMinor, String currency) {
         limits.checkTransactionAmount(amountMinor);
 
-        UUID feeWalletId = wallets.findByOwnerIdAndCurrency(Wallet.SYSTEM_OWNER, currency)
+        UUID feeWalletId = wallets.findByOwnerIdAndCurrency(Wallet.getCurrency(), currency)
                 .orElseThrow(() -> new DomainException(ErrorCode.UNSUPPORTED_CURRENCY, "Unsupported currency: " + currency))
                 .getId();
 
@@ -117,16 +120,24 @@ public class TransferService {
     }
 
     private Map<UUID, Wallet> lockAll(UUID... ids) {
-        Set<UUID> distinct = new LinkedHashSet<>(List.of(ids));
-        Map<UUID, Wallet> byId = new HashMap<>();
-        for (UUID id : distinct) {
-            List<Wallet> found = wallets.lockAllByIdOrdered(List.of(id));
-            if (found.isEmpty()) {
-                throw new DomainException(ErrorCode.WALLET_NOT_FOUND, "Wallet not found: " + id);
-            }
-            byId.put(id, found.get(0));
+        List<UUID> distinct = new ArrayList<>(new LinkedHashSet<>(List.of(ids)));
+
+        List<Wallet> found = wallets.lockAllByIdOrdered(distinct);   // ONE query, locks all rows in id order
+
+        if (found.size() != distinct.size()) {
+            Set<UUID> foundIds = found.stream().map(Wallet::getId).collect(Collectors.toSet());
+            UUID missing = distinct.stream().filter(id -> !foundIds.contains(id)).findFirst().orElseThrow();
+            throw new DomainException(ErrorCode.WALLET_NOT_FOUND, "Wallet not found: " + missing);
         }
-        return byId;
+
+        for (Wallet wallet : found) {
+            if (wallet.getStatus() != WalletStatus.ACTIVE) {
+                throw new DomainException(ErrorCode.WALLET_NOT_ACTIVE,
+                    "Wallet not active: " + wallet.getId() + " (status=" + wallet.getStatus() + ")");
+            }
+        }
+
+        return found.stream().collect(Collectors.toMap(Wallet::getId, w -> w));
     }
 
     private static Wallet requireUserWallet(Wallet wallet, String currency) {

@@ -23,7 +23,7 @@ public class FeePolicy {
         }
         long proportional = BigDecimal.valueOf(amountMinor)
                 .multiply(BigDecimal.valueOf(fees.transferBasisPoints()))
-                .divide(BASIS_POINTS_DIVISOR, 0, RoundingMode.DOWN)
+                .divide(BASIS_POINTS_DIVISOR, 0, RoundingMode.HALF_UP)
                 .longValueExact();
         return Math.max(proportional, fees.minimumMinor());
     }
