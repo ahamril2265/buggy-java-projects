@@ -15,14 +15,14 @@ prime_factors(n)
 def is_prime(n):
     if n < 2:
         return False
-    for divisor in range(2, int(n ** 0.5)):
+    for divisor in range(2, int(n ** 0.5) + 1):
         if n % divisor == 0:
             return False
     return True
 
 
 def primes_up_to(n):
-    return [number for number in range(2, n) if is_prime(number)]
+    return [number for number in range(2, n + 1) if is_prime(number)]
 
 
 def prime_factors(n):

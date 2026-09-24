@@ -19,7 +19,7 @@ title_case(text)
 
 
 def is_palindrome(text):
-    letters = text.lower()
+    letters = "".join(ch.lower() for ch in text if ch.isalnum())
     return letters == letters[::-1]
 
 

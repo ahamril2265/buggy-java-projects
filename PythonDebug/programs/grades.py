@@ -27,13 +27,13 @@ def average(scores):
 def letter_grade(score):
     if score < 0 or score > 100:
         raise ValueError("score must be between 0 and 100")
-    if score > 90:
+    if score >= 90:
         return "A"
-    if score > 80:
+    if score >= 80:
         return "B"
-    if score > 70:
+    if score >= 70:
         return "C"
-    if score > 60:
+    if score >= 60:
         return "D"
     return "F"
 
@@ -51,9 +51,8 @@ def pass_rate(scores, passing=60):
 def best_student(results):
     best_name = None
     best_score = 0
-    for name in sorted(results):
-        score = results[name]
-        if score > best_score:
+    for name, score in sorted(results.items(), key=lambda kv: kv[1], reverse=True):
+        if score >= best_score:
             best_name = name
             best_score = score
     return best_name

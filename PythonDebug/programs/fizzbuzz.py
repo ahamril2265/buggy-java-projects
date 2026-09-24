@@ -12,10 +12,10 @@ If n is 0 or negative, the list is empty.
 
 def fizzbuzz(n):
     results = []
-    for number in range(1, n):
-        if number % 3 == 0:
+    for number in range(1, n  + 1):
+        if number % 3 == 0 and number % 5 != 0:
             results.append("Fizz")
-        elif number % 5 == 0:
+        elif number % 5 == 0 and number % 3 != 0:
             results.append("Buzz")
         elif number % 15 == 0:
             results.append("FizzBuzz")

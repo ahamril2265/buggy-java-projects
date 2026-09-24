@@ -19,7 +19,8 @@ add_item(item, items=None)
 
 
 class Cart:
-    items = []
+    def __init__(self):
+        self.items = []
 
     def add(self, name, price, quantity=1):
         if price < 0:
@@ -46,7 +47,9 @@ class Cart:
         return round(self.total() * (1 - percent / 100), 2)
 
 
-def add_item(item, items=[]):
+def add_item(item, items=None):
+    if items is None:
+        items = []
     items.append(item)
     return items
 

@@ -52,6 +52,24 @@ python run_demos.py todo primes         # just some of them
 python -m pytest > output.txt 2>&1      # save the whole output to a file
 ```
 
+## Tracking your progress
+
+Every `python -m pytest` run prints a **TEST TRACKER** summary (pass/fail per file and a table of
+the failing tests with their error) and updates a status board in the `reports/` folder:
+
+| File | What it is |
+|---|---|
+| `reports/status_board.html` | Open in a browser: colour-coded, with PASS / FAIL filter buttons |
+| `reports/status_board.txt` | Plain table: `File | Test | Result | Change | Error` (failures first) |
+| `reports/status_board.csv` | The same table, opens in Excel |
+| `reports/progress.txt` | One entry per run: totals, **what you fixed**, and **what newly broke** |
+| `reports/history.csv` | One line per run, good for charting failures over time |
+
+The board **remembers**: run just one file (`python -m pytest tests/test_grades.py`) and the other
+rows keep their last known result. A run of the whole suite rebuilds it. The `Change` column shows
+`FIXED` (was failing, now passes) or `NEW FAIL` (was passing, now fails) for the latest run, which
+is how you notice that a fix broke something else. Delete the `reports/` folder to start over.
+
 ## Reading a failure
 
 ```

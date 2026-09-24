@@ -12,6 +12,7 @@ def test_the_list_has_one_entry_per_number_including_n():
 
 def test_multiples_of_both_three_and_five_are_fizzbuzz():
     result = fizzbuzz(30)
+    print( result )
     assert result[14] == "FizzBuzz"
     assert result[29] == "FizzBuzz"
 

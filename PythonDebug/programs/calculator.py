@@ -16,7 +16,7 @@ def calculate(a, op, b):
     if op == "+":
         return a + b
     if op == "-":
-        return b - a
+        return a - b
     if op == "*":
         return a * b
     if op == "/":
@@ -27,7 +27,10 @@ def calculate(a, op, b):
 
 
 def _to_number(text):
-    return int(text)
+    try:
+        return int(text)
+    except ValueError:
+        return float(text)
 
 
 def parse_and_calculate(expression):

@@ -23,7 +23,7 @@ flatten(nested)
 def find_max(numbers):
     if not numbers:
         return None
-    largest = 0
+    largest = float("-inf")
     for number in numbers:
         if number > largest:
             largest = number
@@ -31,16 +31,13 @@ def find_max(numbers):
 
 
 def remove_evens(numbers):
-    for number in numbers:
-        if number % 2 == 0:
-            numbers.remove(number)
-    return numbers
+    return [n for n in numbers if n % 2 != 0]
 
 
 def chunk(items, size):
     if size <= 0:
         raise ValueError("size must be positive")
-    return [items[start:start + size] for start in range(0, len(items) - size + 1, size)]
+    return [items[start:start + size] for start in range(0, len(items), size)]
 
 
 def remove_duplicates(items):
