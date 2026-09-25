@@ -1,0 +1,9 @@
+product_id,name,category,cost
+P100,Notebook,Stationery,2.00
+P101,Pen, stationery ,0.50
+p102,Headphones,Electronics,25.00
+P103,Keyboard,Electronics,30.00
+P104,Mug,Home,3.50
+P105,Lamp,Home,12.00
+P106,Backpack,Accessories,15.00
+P104,Mug (duplicate),Home,99.00
