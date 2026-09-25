@@ -16,7 +16,7 @@ title_case(text)
     case: "hello wORLD" -> "Hello World". An apostrophe does not start a new word, so
     "it's o'neil" -> "It's O'neil".
 """
-
+import string
 
 def is_palindrome(text):
     letters = "".join(ch.lower() for ch in text if ch.isalnum())
@@ -24,7 +24,7 @@ def is_palindrome(text):
 
 
 def count_words(text):
-    return len(text.split(" "))
+    return len(text.split())
 
 
 def reverse_words(text):
@@ -32,7 +32,7 @@ def reverse_words(text):
 
 
 def title_case(text):
-    return text.title()
+    return string.capwords(text)
 
 
 def main():

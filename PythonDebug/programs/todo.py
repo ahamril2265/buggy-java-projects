@@ -21,14 +21,14 @@ class TodoList:
 
     def complete(self, title):
         for task in self.tasks:
-            if task["title"] is title:
+            if task["title"] == title:
                 task["done"] = True
                 return True
         return False
 
     def pending(self):
         open_tasks = [task for task in self.tasks if not task["done"]]
-        ordered = open_tasks.sort(key=lambda task: (-task["priority"], task["title"]))
+        ordered = sorted(open_tasks, key=lambda task: (-task["priority"], task["title"]))
         return [task["title"] for task in ordered]
 
     def completed(self):
