@@ -28,6 +28,7 @@ dedupe_orders(orders)
     occurrence of every order_id. Returns the survivors sorted by order_id.
 """
 import csv
+import math
 from datetime import datetime
 
 from pipeline.clean import normalize_status
@@ -45,7 +46,7 @@ def read_csv(path):
 
 def parse_date(text):
     text = text.strip()
-    for fmt in ("%Y-%m-%d", "%m/%d/%Y"):
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y"):
         try:
             return datetime.strptime(text, fmt).date()
         except ValueError:
@@ -54,49 +55,69 @@ def parse_date(text):
 
 
 def parse_order_row(row):
-    order_id = row.get("order_id", "").strip().upper()
-    if not order_id:
-        raise ValueError("missing order_id")
+    text = {}
+    for field in ("order_id", "customer_id", "product_id", "currency", "coupon"):
+        raw = row.get(field)
+        if raw is None:  
+            raw = ""
+        if not isinstance(raw, str):  
+            raise ValueError(f"{field} must be text, got {raw!r}")
+        text[field] = raw.strip().upper()
 
+    for field in ("order_id", "customer_id", "currency"):
+        if not text[field]:
+            raise ValueError(f"missing {field}")
+
+    if text["currency"] not in FX_RATES_TO_USD:
+        raise ValueError(f"unknown currency: {text['currency']!r}")
+
+    raw_quantity = row.get("quantity")
+    if isinstance(raw_quantity, bool) or (
+        isinstance(raw_quantity, float) and not raw_quantity.is_integer()
+    ):
+        raise ValueError(f"quantity must be a whole number, got {raw_quantity!r}")
     try:
-        quantity = int(row.get("quantity", ""))
-    except ValueError:
-        raise ValueError("quantity must be a whole number")
+        quantity = int(raw_quantity)  
+    except (TypeError, ValueError) as e:  
+        raise ValueError(f"quantity must be a whole number, got {raw_quantity!r}") from e
     if quantity < 1:
-        raise ValueError("quantity must be at least 1")
+        raise ValueError(f"quantity must be at least 1, got {quantity}")
 
+    raw_price = row.get("unit_price")
+    if isinstance(raw_price, bool):
+        raise ValueError(f"unit_price must be a number, got {raw_price!r}")
     try:
-        unit_price = float(row.get("unit_price", ""))
-    except ValueError:
-        raise ValueError("unit_price must be a number")
+        unit_price = float(raw_price)
+    except (TypeError, ValueError) as e:
+        raise ValueError(f"unit_price must be a number, got {raw_price!r}") from e
+    if not math.isfinite(unit_price):
+        raise ValueError(f"unit_price must be finite, got {raw_price!r}")
     if unit_price < 0:
-        raise ValueError("unit_price cannot be negative")
+        raise ValueError(f"unit_price cannot be negative, got {unit_price}")
 
-    currency = row.get("currency", "").strip().upper()
-    if currency not in FX_RATES_TO_USD:
-        raise ValueError(f"unknown currency: {currency!r}")
+    raw_date = row.get("order_date")
+    if not isinstance(raw_date, str):  
+        raise ValueError(f"order_date must be text, got {raw_date!r}")
 
     return {
-        "order_id": order_id,
-        "customer_id": row.get("customer_id", "").strip(),
-        "product_id": row.get("product_id", "").strip().upper(),
+        "order_id": text["order_id"],
+        "customer_id": text["customer_id"],
+        "product_id": text["product_id"],
         "quantity": quantity,
         "unit_price": unit_price,
-        "currency": currency,
-        "order_date": parse_date(row.get("order_date", "")),
-        "status": normalize_status(row.get("status", "")),
-        "coupon": row.get("coupon", "").strip().upper(),
+        "currency": text["currency"],
+        "order_date": parse_date(raw_date),
+        "status": normalize_status(row.get("status") or ""),
+        "coupon": text["coupon"],
     }
-
 
 def load_orders(path):
     orders, rejected = [], []
-    for index, row in enumerate(read_csv(path)):
-        line = index + 1
+    for line, row in enumerate(read_csv(path), start=2):
         try:
             orders.append(parse_order_row(row))
         except ValueError as error:
-            rejected.append({"line": line, "reason": str(error)})
+            rejected.append({"line": line, "reason": str(error), "row": row})
     return orders, rejected
 
 
@@ -104,5 +125,7 @@ def dedupe_orders(orders):
     latest = {}
     for order in orders:
         if order["order_id"] not in latest:
+            latest[order["order_id"]] = order
+        else:
             latest[order["order_id"]] = order
     return [latest[key] for key in sorted(latest)]
