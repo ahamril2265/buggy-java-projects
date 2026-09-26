@@ -31,23 +31,29 @@ def normalize_email(email):
 
 
 def normalize_country(country):
-    key = country.strip()
+    key = country.strip().upper()
     return COUNTRY_ALIASES.get(key, key.upper())
 
 
 def normalize_status(status):
     value = status.strip().lower()
-    if value not in VALID_STATUSES:
-        raise ValueError(f"unknown status: {status!r}")
     if value == "canceled":
         value = "cancelled"
+    if value not in VALID_STATUSES:
+        raise ValueError(f"unknown status: {status!r}")
     return value
 
 
 def to_usd(amount, currency, rates=FX_RATES_TO_USD):
     if currency not in rates:
         raise ValueError(f"unknown currency: {currency!r}")
-    return round(float(amount) * rates[currency], 2)
+    CENT = Decimal("0.01")
+
+    FX_RATES_TO_USD = {"USD": Decimal("1.0"), "EUR": Decimal("1.1"), "GBP": Decimal("1.25")}
+
+    usd = (Decimal(str(amount)) * FX_RATES_TO_USD[currency]).quantize(CENT, rounding=ROUND_HALF_UP)
+
+    return float(usd.quantize(CENT, rounding=ROUND_HALF_UP))
 
 
 def clean_customers(rows):
