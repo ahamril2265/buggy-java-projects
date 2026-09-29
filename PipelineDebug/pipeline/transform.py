@@ -29,23 +29,29 @@ enrich_orders(orders, customers, products, rates=FX_RATES_TO_USD)
 mark_first_orders(rows)
     Sets the is_first_order flag on every row as described above (modifies the rows in place).
 """
+
+import logging 
+from decimal import Decimal, ROUND_HALF_UP
+
 from pipeline.clean import to_usd
 from pipeline.config import COUPONS, FX_RATES_TO_USD
 
 
 def line_total(order):
-    gross = order["quantity"] * order["unit_price"]
-    kind, value = COUPONS.get(order["coupon"], (None, 0))
+    gross = order["quantity"] * order["unit_price"] #200
+    kind, value = COUPONS.get(order["coupon"], (None, 0)) #FLATS
     if kind == "percent":
         gross = gross * (1 - value / 100)
     elif kind == "flat":
-        gross = gross - value * order["quantity"]
+        gross = gross - value 
+    elif kind is not None:
+        raise ValueError( f"Unknown coupon kind {kind!r} for coupon {order['coupon']!r}" )
     return round(max(gross, 0.0), 4)
 
 
 def mark_first_orders(rows):
     first_order_of = {}
-    for row in rows:
+    for row in sorted( rows, key = lambda r: ( r["order_date"], r["order_id"] ) ):
         first_order_of.setdefault(row["customer_id"], row["order_id"])
     for row in rows:
         row["is_first_order"] = first_order_of[row["customer_id"]] == row["order_id"]
@@ -62,7 +68,7 @@ def enrich_orders(orders, customers, products, rates=FX_RATES_TO_USD):
             orphans.append(order["order_id"])
             continue
 
-        if order["status"] in ("completed", "refunded"):
+        if order["status"] in ("completed",):
             revenue = to_usd(line_total(order), order["currency"], rates)
             cost = round(order["quantity"] * product["cost"], 2)
         else:
@@ -87,3 +93,4 @@ def enrich_orders(orders, customers, products, rates=FX_RATES_TO_USD):
 
     mark_first_orders(rows)
     return rows, orphans
+
