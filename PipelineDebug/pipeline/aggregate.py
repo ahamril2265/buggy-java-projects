@@ -63,12 +63,12 @@ def top_customers(rows, n):
     totals = defaultdict(float)
     for row in rows:
         totals[row["customer_id"]] += row["revenue_usd"]
-    ranked = sorted(totals.items(), key=lambda item: -item[1])
+    ranked = sorted(totals.items(), key=lambda item: (-item[1], item[0]) )
     return [(customer, round(revenue, 2)) for customer, revenue in ranked[:n]]
 
 
 def average_order_value(rows):
-    amounts = [row["revenue_usd"] for row in rows]
+    amounts = [row["revenue_usd"] for row in rows if row["status"] == "completed"]
     if not amounts:
         return None
     return round(sum(amounts) / len(amounts), 2)
@@ -79,7 +79,7 @@ def moving_average(values, window):
         raise ValueError("window must be at least 1")
     result = []
     for index in range(len(values)):
-        chunk = values[max(0, index - window): index + 1]
+        chunk = values[max(0, index - window + 1): index + 1]
         result.append(round(sum(chunk) / len(chunk), 2))
     return result
 
@@ -95,7 +95,7 @@ def percentile(values, p):
     high = math.ceil(rank)
     if low == high:
         return float(ordered[low])
-    return ordered[low] + (ordered[high] - ordered[low]) * (high - rank)
+    return ordered[low] + (ordered[high] - ordered[low]) * (rank - low)
 
 
 def growth_rates(monthly):
@@ -106,7 +106,7 @@ def growth_rates(monthly):
         if previous is None or previous == 0:
             result[month] = None
         else:
-            result[month] = round((current - previous) / current * 100, 1)
+            result[month] = round((current - previous) / previous * 100, 1)
         previous = current
     return result
 
@@ -114,7 +114,7 @@ def growth_rates(monthly):
 def next_month(month):
     year, number = (int(part) for part in month.split("-"))
     if number == 12:
-        return f"{year}-01"
+        return f"{year + 1}-01"
     return f"{year}-{number + 1:02d}"
 
 
