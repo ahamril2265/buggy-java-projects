@@ -38,10 +38,10 @@ def run_pipeline(orders_path, customers_path, products_path, conn,
     customers = clean_customers(read_csv(customers_path))
     products = clean_products(read_csv(products_path))
 
+    rows, orphans = enrich_orders(orders, customers, products, rates)
+
     watermark = get_watermark(conn)
-    recent = [o for o in orders if watermark is None or o["order_date"] > watermark]
-    rows, orphans = enrich_orders(recent, customers, products)
-    fresh = rows
+    fresh = [row for row in rows if watermark is None or row["order_date"] >= watermark]
 
     inserted, updated = upsert_orders(conn, fresh)
     if fresh:

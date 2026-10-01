@@ -68,7 +68,7 @@ ON CONFLICT(order_id) DO UPDATE SET
     profit_usd     = excluded.profit_usd,
     is_first_order = excluded.is_first_order
 """
-
+from decimal import Decimal
 
 def init_db(conn):
     conn.executescript(SCHEMA)
@@ -77,21 +77,29 @@ def init_db(conn):
 
 def upsert_orders(conn, rows):
     inserted = updated = 0
-    for row in rows:
-        params = dict(row)
-        params["order_date"] = row["order_date"].isoformat()
-        params["is_first_order"] = int(row["is_first_order"])
-        conn.execute(UPSERT, params)
-        existed = conn.execute(
-            "SELECT 1 FROM fact_orders WHERE order_id = ?", (row["order_id"],)
-        ).fetchone()
-        if existed:
-            updated += 1
-        else:
-            inserted += 1
-    conn.commit()
-    return inserted, updated
 
+    with conn:
+        for row in rows:
+            params = dict(row)
+            params["order_date"] = row["order_date"].isoformat()
+            params["is_first_order"] = int(row["is_first_order"])
+
+            for key, value in params.items():
+                if isinstance(value, Decimal):
+                    params[key] = str(value)
+
+            existed = conn.execute(
+                    "SELECT 1 FROM fact_orders WHERE order_id = ?", (row["order_id"],)
+            ).fetchone()
+
+            conn.execute(UPSERT, params)
+
+            if existed:
+                    updated += 1
+            else:
+                    inserted += 1
+
+    return inserted, updated
 
 def get_watermark(conn):
     row = conn.execute("SELECT value FROM meta WHERE key = 'watermark'").fetchone()
@@ -101,7 +109,7 @@ def get_watermark(conn):
 def set_watermark(conn, day):
     conn.execute(
         "INSERT INTO meta (key, value) VALUES ('watermark', ?) "
-        "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+        "ON CONFLICT(key) DO UPDATE SET value = excluded.value WHERE excluded.value > meta.value",
         (day.isoformat(),),
     )
     conn.commit()
@@ -118,7 +126,7 @@ def sql_revenue_by_month(conn):
 def sql_top_countries(conn, n):
     cursor = conn.execute(
         "SELECT country, ROUND(SUM(revenue_usd), 2) AS revenue FROM fact_orders "
-        "GROUP BY country ORDER BY revenue DESC, country DESC LIMIT ?",
+        "GROUP BY country ORDER BY revenue DESC, country LIMIT ?",
         (n,),
     )
     return [(country, revenue) for country, revenue in cursor]
@@ -128,6 +136,6 @@ def sql_repeat_customers(conn):
     row = conn.execute(
         "SELECT COUNT(*) FROM ("
         "  SELECT customer_id FROM fact_orders WHERE status = 'completed' "
-        "  GROUP BY customer_id HAVING COUNT(*) > 2)"
+        "  GROUP BY customer_id HAVING COUNT(*) > 1)"
     ).fetchone()
     return row[0]

@@ -27,7 +27,8 @@ import csv
 
 
 def format_money(amount):
-    return f"${amount:,.2f}"
+    sign = "-" if amount < 0 else ""
+    return f"{sign}${abs(amount):,.2f}"
 
 
 def format_percent(value):

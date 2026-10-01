@@ -52,8 +52,8 @@ def test_rejected_rows_are_logged_with_correct_line_numbers(conn, tmp_path):
     run_pipeline(ORDERS, CUSTOMERS, PRODUCTS, conn, rejects_path=rejects)
     assert rejects.read_text(encoding="utf-8").splitlines() == [
         "line,reason",
-        "30,quantity must be at least 1",
-        "31,quantity must be a whole number",
+        '30,"quantity must be at least 1, got 0"',
+        '31,"quantity must be a whole number, got \'\'"',
         "32,unknown currency: 'JPY'",
         "33,unrecognised date: '2025-13-45'",
         "34,unknown status: 'shipped'",

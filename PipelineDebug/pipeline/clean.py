@@ -49,9 +49,7 @@ def to_usd(amount, currency, rates=FX_RATES_TO_USD):
         raise ValueError(f"unknown currency: {currency!r}")
     CENT = Decimal("0.01")
 
-    FX_RATES_TO_USD = {"USD": Decimal("1.0"), "EUR": Decimal("1.1"), "GBP": Decimal("1.25")}
-
-    usd = (Decimal(str(amount)) * FX_RATES_TO_USD[currency]).quantize(CENT, rounding=ROUND_HALF_UP)
+    usd = (Decimal(str(amount)) * Decimal(str(rates[currency]))).quantize(CENT, rounding=ROUND_HALF_UP)
 
     return float(usd.quantize(CENT, rounding=ROUND_HALF_UP))
 
